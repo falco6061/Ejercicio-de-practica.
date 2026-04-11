@@ -1,6 +1,6 @@
 def evaluar(nombre, materia, nota):
     if nota >= 90:
-        print(nombre, "sacó una nota sobresaliente en", materia)
+        print(nombre, "sacó un exelente en", materia)
     elif nota >= 60:
         print(nombre, "aprobó la materia de", materia)
     else:
