@@ -4,7 +4,8 @@ class veterinaria:
         global especie, peso, problema
         especie = str(input("Ingrese el tipo de animal (perro/gato): ")).strip().lower()
         peso = float(input("Ingrese el peso del animal en kg: "))
-        problema = str(input("¿Qué problema tiene? Eliga cuales de estos problemas tiene? (digestión o pata fracturada) : "))
+        # Convertimos a minúsculas para facilitar la comparación posterior
+        problema = str(input("¿Qué problema tiene? Eliga cuales de estos problemas tiene? (digestión o pata fracturada) : ")).strip().lower()
 
 class gato(veterinaria):
     def mostrar_gato(self):    
@@ -23,11 +24,13 @@ class perro(veterinaria):
 class cobro_veterinaria(veterinaria):
     def problemadelanimal(self, problema):
         global saldo
-        saldo=0
-        if problema == "Digestión":
-            saldo= 20000
+        saldo = 0
+        # Comparamos en minúscula ya que limpiamos la entrada antes
+        if problema == "digestión" or problema == "digestion":
+            saldo = 20000
         else:
-            saldo= 45000
+            saldo = 45000
+            
     def cobrar(self):
         print("La consulta sale ", saldo)
 
@@ -46,8 +49,9 @@ if especie == "perro":
     perro_actual = perro()
     perro_actual.mostrar_perro()
     
-    # Creamos el objeto cobro y llamamos a su función
+    # Creamos el objeto cobro, calculamos el problema y cobramos
     cobro = cobro_veterinaria()
+    cobro.problemadelanimal(problema)  # <--- CORRECCIÓN: Definimos el saldo antes de cobrar
     cobro.cobrar()
 
 elif especie == "gato":
@@ -56,6 +60,7 @@ elif especie == "gato":
     gato_actual.mostrar_gato()
     
     cobro = cobro_veterinaria()
+    cobro.problemadelanimal(problema)  # <--- CORRECCIÓN: Definimos el saldo antes de cobrar
     cobro.cobrar()
 
 else:
